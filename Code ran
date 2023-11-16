@@ -34,6 +34,16 @@ public:
 
     }
 };
+bool VaChamTuong(){
+        if(A[0].x == 0 || A[0].x == 80 || A[0].y == 0 || A[0].y == 25)
+            return true;
+        return false;
+    }
+    void TangDoDai(){
+        A[DoDai] = A[DoDai-1];
+        DoDai++;
+    }
+};
 
 int main()
 {

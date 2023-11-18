@@ -33,6 +33,12 @@ public:
         if (Huong==3) A[0].y = A[0].y - 1;
 
     }
+void tuong (){
+system("CLS");
+for(int i = 0 ; i<Dodai ; i++){
+cout<<"#";
+}cout<<endl;
+}
 
 bool VaChamTuong(){
         if(A[0].x == 0 || A[0].x == 80 || A[0].y == 0 || A[0].y == 25)

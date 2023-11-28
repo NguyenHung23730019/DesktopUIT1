@@ -35,7 +35,7 @@ public:
     }
 void tuong (){
 system("CLS");
-for(int i = 0 ; i<Dodai ; i++){
+for(int i = 0 ; i<DoDai ; i++){
 cout<<"#";
 }cout<<endl;
 }

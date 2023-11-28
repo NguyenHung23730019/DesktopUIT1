@@ -68,7 +68,7 @@ int main()
         system("cls");
         r.Ve();
         r.DiChuyen(Huong);
-        Sleep(300);
+        Sleep(500);
     }
 
     return 0;

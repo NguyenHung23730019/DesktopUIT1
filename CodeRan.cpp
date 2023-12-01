@@ -220,7 +220,7 @@ public:
     }
     void tang_do_dai()
     {
-        if (thanRan[0].x == moi.x && thanRan[0].y == moi.y)
+        if (thanRan[0].x == moi.x && thanRan[0].y == moi.y && DoDai < MAX - 5)
         {
             diem++;
             DoDai++;

@@ -27,6 +27,7 @@ void SetColor(WORD color)
 }
 
 
+
 void showCur(bool type_num)
 {
     // 0 : an -- 1: mo -- 2: normal

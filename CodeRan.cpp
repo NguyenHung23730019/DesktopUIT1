@@ -5,7 +5,6 @@
 #include <time.h>
 #include <stdio.h>
 
-
 using namespace std;
 
 struct Point
@@ -16,9 +15,9 @@ struct Point
 #define MAX 500
 // Do dai khung:
 int x_min = 5;
-int x_max = 80;
-int y_min = 5;
-int y_max = 35;
+int x_max = 75;
+int y_min = 7;
+int y_max = 30;
 
 // Do dai ran:
 int DoDai = 4;
@@ -34,12 +33,13 @@ Point moi = {-100, 0};
 
 //===================
 void gotoXY(SHORT, SHORT);
-void SetColor(WORD );
+void SetColor(WORD);
 void showCur(bool);
 
 void khoi_tao_game();
 void play_game();
 void ve_tuong();
+void ve_huong_dan();
 void tao_diem();
 bool kt_cham_than();
 int soNgauNhien(int, int);
@@ -193,7 +193,7 @@ public:
 
     void cong_diem()
     {
-        SetColor(2);
+        SetColor(10);
         gotoXY(x_min + 3, y_min - 1);
         cout << "Diem: " << diem;
     }
@@ -256,6 +256,7 @@ void khoi_tao_game()
 {
     showCur(0); // Ẩn con trỏ chuột
     ve_tuong();
+    ve_huong_dan();
     // tao_ret();
     conRan.VeRan();
 }
@@ -303,6 +304,29 @@ void ve_tuong()
     }
 }
 
+void ve_huong_dan(){
+        int can_phai_1 = 32;
+        int can_phai_2 = 32;
+        int can_phai_3 = 8;
+        int dong_1 = 4;
+        int dong_2 = 3;
+        int dong_3 = 2;
+        int dong_4 = 1;
+        SetColor(6);
+        gotoXY(x_max - can_phai_2, y_min - dong_2);
+        cout << "W: Len";
+        gotoXY(x_max - can_phai_2, y_min - dong_3);
+        cout << "D: Xuong";
+        gotoXY(x_max - can_phai_1, y_min - dong_4);
+        cout << "(Co the di chuyen bang MUI TEN)";
+        gotoXY(x_max - can_phai_2, y_min - dong_1);
+        cout << "Space: Pause/Reset";
+        gotoXY(x_max - can_phai_3, y_min - dong_2);
+        cout << "F: Phai";
+        gotoXY(x_max - can_phai_3, y_min - dong_3);
+        cout << "A: Trai";
+}
+
 int soNgauNhien(int min, int max)
 {
     int random;
@@ -331,8 +355,6 @@ void SetColor(WORD color)
 
     SetConsoleTextAttribute(hConsoleOutput, wAttr);
 }
-
-
 
 void showCur(bool type_num)
 {

@@ -44,6 +44,7 @@ void khoi_tao_game();
 void play_game();
 void ve_tuong();
 void ve_mo_ta_cach_choi();
+void toc_do_ran(int&);
 int soNgauNhien(int, int);
 
 class CONRAN
@@ -300,7 +301,6 @@ int main()
 {
     srand(time(NULL));
     khoi_tao_game();
-    int i = 0;
     while (1)
     {
         // if(i > 50){
@@ -320,20 +320,7 @@ void khoi_tao_game()
 {
 
     system("cls");
-    toc_do = 100;
-    cout <<"Nhap toc do ran (100 = 0.1 giay): ";
-
-    if(_kbhit()){
-        _getch();
-    }
-
-    cin >> toc_do;
-    while (toc_do < 0)
-    {
-        toc_do = -1;
-        cout <<"Nhap lai toc do > 0: ";
-        cin >> toc_do;
-    }
+    toc_do_ran(toc_do);
     
     system("cls");
     showCur(0); // Ẩn con trỏ chuột
@@ -461,4 +448,34 @@ void showCur(bool type_num)
     HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_CURSOR_INFO cursor = {1, type_num};
     SetConsoleCursorInfo(handle, &cursor);
+}
+
+void toc_do_ran(int &n){
+    char c[50];
+    bool k_check = false;
+    do
+    {
+        k_check = false;
+        cout << "Nhap toc do ran > 0 (100 = 0.1 giay): ";
+        fgets(c, 10, stdin);
+
+        
+        for (int i = 0; c[i] != '\0'; i++)
+        {
+
+            if((c[i] < '0' || c[i] > '9') && c[i] != '\0'  && c[i] != 10 ){
+                k_check = true;
+                break;
+            }
+        }
+    } while (k_check);
+    
+    int num = 0;
+    for(int i = 0; c[i] != '\0'; i++){
+        if(c[i] != 10){
+            num = num* 10 + (c[i]-48);
+        }
+        
+    }
+    n = num;
 }

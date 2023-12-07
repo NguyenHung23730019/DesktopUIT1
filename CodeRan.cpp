@@ -151,6 +151,7 @@ public:
             if (c == '1')
             {
                 khoi_tao_game();
+
             }
         }
         // Sleep(3000);
@@ -318,6 +319,22 @@ int main()
 void khoi_tao_game()
 {
 
+    system("cls");
+    toc_do = 100;
+    cout <<"Nhap toc do ran (100 = 0.1 giay): ";
+
+    if(_kbhit()){
+        _getch();
+    }
+
+    cin >> toc_do;
+    while (toc_do < 0)
+    {
+        toc_do = -1;
+        cout <<"Nhap lai toc do > 0: ";
+        cin >> toc_do;
+    }
+    
     system("cls");
     showCur(0); // Ẩn con trỏ chuột
     ve_tuong();

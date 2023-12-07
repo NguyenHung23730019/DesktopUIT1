@@ -169,6 +169,8 @@ public:
     {
         gotoXY(x_mid - 12, y_max + 1);
         cout << "---------GAME OVER----------";
+        Sleep(2000);
+        _getch();
     }
 
     void di_chuyen()
@@ -463,7 +465,7 @@ void toc_do_ran(int &n){
         for (int i = 0; c[i] != '\0'; i++)
         {
 
-            if((c[i] < '0' || c[i] > '9') && c[i] != '\0'  && c[i] != 10 ){
+            if(c[0] == '\0' || (c[i] < '0' || c[i] > '9') && c[i] != '\0'  && c[i] != 10 ){
                 k_check = true;
                 break;
             }
@@ -477,5 +479,5 @@ void toc_do_ran(int &n){
         }
         
     }
-    n = num;
+    n = num == 0? 50 : num;
 }

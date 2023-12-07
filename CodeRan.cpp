@@ -23,6 +23,7 @@ int y_mid = (y_min + y_max) / 2;
 
 // Do dai ran:
 int DoDai = 4;
+int toc_do = 500;
 
 // Huong mac dinh:
 int huong = 2;
@@ -57,7 +58,7 @@ public:
 
         for (int i = 1; i < DoDai; i++)
         {
-            thanRan[i].x = thanRan[i-1].x - 1;
+            thanRan[i].x = thanRan[i - 1].x - 1;
             thanRan[i].y = thanRan[0].y;
         }
     }
@@ -96,7 +97,6 @@ public:
                 cout << "O";
             }
         }
-        
     }
 
     void dieu_khien_huong()
@@ -124,7 +124,7 @@ public:
             {
                 huong = 3;
             }
-            else if (pressKey == 32 )
+            else if (pressKey == 32)
             {
                 huong_pause = huong;
                 huong = 4;
@@ -132,36 +132,41 @@ public:
         }
     }
 
-    void start(){
-        gotoXY(x_mid-12, y_max + 1);
-        cout<<"START: Nhan phim bat ky     ";
+    void start()
+    {
+        gotoXY(x_mid - 12, y_max + 1);
+        cout << "START: Nhan phim bat ky     ";
         _getch();
     }
 
-    void pause(){
-        //Ẩn dòng Pause...
-        gotoXY(x_mid-12, y_max + 1);
-        cout<<"PAUSED: nhan phim 1 de RESET";
+    void pause()
+    {
+        // Ẩn dòng Pause...
+        gotoXY(x_mid - 12, y_max + 1);
+        cout << "PAUSED: nhan phim 1 de RESET";
         char c = '@';
         while (c == '@')
         {
             c = _getch();
-            if(c == '1'){
+            if (c == '1')
+            {
                 khoi_tao_game();
             }
         }
-        //Sleep(3000);
+        // Sleep(3000);
         running();
     }
 
-    void running(){
-        gotoXY(x_mid-12, y_max + 1);
-        cout<<"RUNNING...                  ";
+    void running()
+    {
+        gotoXY(x_mid - 12, y_max + 1);
+        cout << "RUNNING...                  ";
     }
 
-    void gameOver(){
-        gotoXY(x_mid-12, y_max + 1);
-        cout<<"---------GAME OVER----------";
+    void gameOver()
+    {
+        gotoXY(x_mid - 12, y_max + 1);
+        cout << "---------GAME OVER----------";
     }
 
     void di_chuyen()
@@ -266,7 +271,15 @@ public:
 
     void kt_cham_than()
     {
-        
+        for (int i = 3; i < DoDai; i++)
+        {
+            if (thanRan[0].x == thanRan[i].x && thanRan[0].y == thanRan[i].y)
+            {
+                gameOver();
+                _getch();
+                khoi_tao_game();
+            }
+        }
     }
     void tang_do_dai()
     {
@@ -280,7 +293,6 @@ public:
 };
 
 CONRAN conRan;
-
 
 //====MAIN: START============================================
 int main()
@@ -296,7 +308,7 @@ int main()
         // }
         // i++;
         play_game();
-        Sleep(100);
+        Sleep(toc_do);
     }
     _getch();
     return 0;
@@ -305,16 +317,17 @@ int main()
 
 void khoi_tao_game()
 {
+
     system("cls");
     showCur(0); // Ẩn con trỏ chuột
     ve_tuong();
     ve_mo_ta_cach_choi();
 
     CONRAN conRan_0;
-    conRan = conRan_0;//Reset rắn khi game over
-    DoDai = 4; //Reset do dai
-    huong = 2; //Reset huong
-    moi.x = -100;//Reset moi
+    conRan = conRan_0; // Reset rắn khi game over
+    DoDai = 4;         // Reset do dai
+    huong = 2;         // Reset huong
+    moi.x = -100;      // Reset moi
     conRan.tao_moi();
     diem = 0; // Reset diem
     conRan.cong_diem();
@@ -323,7 +336,6 @@ void khoi_tao_game()
     conRan.VeRan();
     conRan.start();
     conRan.running();
-    
 }
 
 void play_game()
@@ -373,29 +385,28 @@ void ve_tuong()
     }
 }
 
-
-
-void ve_mo_ta_cach_choi(){
-        int can_phai_1 = 32;
-        int can_phai_2 = 32;
-        int can_phai_3 = 8;
-        int dong_1 = 4;
-        int dong_2 = 3;
-        int dong_3 = 2;
-        int dong_4 = 1;
-        SetColor(6);
-        gotoXY(x_max - can_phai_2, y_min - dong_2);
-        cout << "W: Len";
-        gotoXY(x_max - can_phai_2, y_min - dong_3);
-        cout << "D: Xuong";
-        gotoXY(x_max - can_phai_1, y_min - dong_4);
-        cout << "(Co the di chuyen bang MUI TEN)";
-        gotoXY(x_max - can_phai_2, y_min - dong_1);
-        cout << "Space: Pause/Reset";
-        gotoXY(x_max - can_phai_3, y_min - dong_2);
-        cout << "F: Phai";
-        gotoXY(x_max - can_phai_3, y_min - dong_3);
-        cout << "A: Trai";
+void ve_mo_ta_cach_choi()
+{
+    int can_phai_1 = 32;
+    int can_phai_2 = 32;
+    int can_phai_3 = 8;
+    int dong_1 = 4;
+    int dong_2 = 3;
+    int dong_3 = 2;
+    int dong_4 = 1;
+    SetColor(6);
+    gotoXY(x_max - can_phai_2, y_min - dong_2);
+    cout << "W: Len";
+    gotoXY(x_max - can_phai_2, y_min - dong_3);
+    cout << "D: Xuong";
+    gotoXY(x_max - can_phai_1, y_min - dong_4);
+    cout << "(Co the di chuyen bang MUI TEN)";
+    gotoXY(x_max - can_phai_2, y_min - dong_1);
+    cout << "Space: Pause/Reset";
+    gotoXY(x_max - can_phai_3, y_min - dong_2);
+    cout << "F: Phai";
+    gotoXY(x_max - can_phai_3, y_min - dong_3);
+    cout << "A: Trai";
 }
 
 int soNgauNhien(int min, int max)

@@ -16,19 +16,22 @@ struct Point
 // Do dai khung:
 int x_min = 5;
 int x_max = 75;
+int x_mid = (x_min + x_max) / 2;
 int y_min = 7;
 int y_max = 30;
+int y_mid = (y_min + y_max) / 2;
 
 // Do dai ran:
 int DoDai = 4;
 
 // Huong mac dinh:
 int huong = 2;
+int huong_pause = huong;
 
 // Diem khoi tao:
 int diem = 0;
 
-Point diemBatDau = {(x_min + x_max) / 3, (y_min + y_max) / 2};
+Point diemBatDau = {x_mid * 3 / 4, y_mid};
 Point moi = {-100, 0};
 
 //===================
@@ -119,7 +122,30 @@ public:
             {
                 huong = 3;
             }
+            else if (pressKey == 32 )
+            {
+                huong_pause = huong;
+                huong = 4;
+            }
         }
+    }
+
+    void pause(){
+        //Ẩn dòng Pause...
+        gotoXY(x_mid-8, y_max + 1);
+        cout<<"  ----PAUSED----  ";
+        char c = '!';
+        while (c == '!')
+        {
+            c = _getch();
+        }
+        //Sleep(3000);
+        running();
+    }
+
+    void running(){
+        gotoXY(x_mid-8, y_max + 1);
+        cout<<"  ....RUNNING....  ";
     }
 
     void di_chuyen()
@@ -158,7 +184,10 @@ public:
             }
             thanRan[0].y -= 1;
             break;
-
+        case 4:
+            huong = huong_pause;
+            pause();
+            break;
         default:
             break;
         }
@@ -258,6 +287,7 @@ void khoi_tao_game()
     ve_tuong();
     ve_huong_dan();
     // tao_ret();
+    conRan.running();
     conRan.VeRan();
 }
 
@@ -280,12 +310,14 @@ void ve_tuong()
 
     for (int x = x_min; x <= x_max; x++)
     {
-        for (int y = y_min; y <= y_max; y++)
+        for (int y = y_min; y <= y_max + 2; y++)
         {
             if ((x == x_min && y == y_min) ||
                 (x == x_min && y == y_max) ||
+                (x == x_min && y == y_max + 2) ||
                 (x == x_max && y == y_min) ||
-                (x == x_max && y == y_max))
+                (x == x_max && y == y_max) ||
+                (x == x_max && y == y_max + 2))
             {
                 gotoXY(x, y);
                 cout << strGoc;
@@ -295,7 +327,7 @@ void ve_tuong()
                 gotoXY(x, y);
                 cout << strDoc;
             }
-            else if (y == y_min || y == y_max)
+            else if (y == y_min || y == y_max || y == y_max + 2)
             {
                 gotoXY(x, y);
                 cout << strNgang;
@@ -303,6 +335,8 @@ void ve_tuong()
         }
     }
 }
+
+
 
 void ve_huong_dan(){
         int can_phai_1 = 32;

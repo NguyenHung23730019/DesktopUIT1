@@ -42,9 +42,7 @@ void showCur(bool);
 void khoi_tao_game();
 void play_game();
 void ve_tuong();
-void ve_huong_dan();
-void tao_diem();
-bool kt_cham_than();
+void ve_mo_ta_cach_choi();
 int soNgauNhien(int, int);
 
 class CONRAN
@@ -54,15 +52,20 @@ public:
 
     CONRAN()
     {
-        for (int i = 0; i < DoDai; i++)
+        thanRan[0].x = diemBatDau.x;
+        thanRan[0].y = diemBatDau.y;
+
+        for (int i = 1; i < DoDai; i++)
         {
-            thanRan[i].x = diemBatDau.x--;
-            thanRan[i].y = diemBatDau.y;
+            thanRan[i].x = thanRan[i-1].x - 1;
+            thanRan[i].y = thanRan[0].y;
         }
     }
 
     void VeRan()
     {
+        gotoXY(thanRan[DoDai].x, thanRan[DoDai].y);
+        cout << " ";
         SetColor(6);
         for (int i = 0; i < DoDai; i++)
         {
@@ -93,8 +96,7 @@ public:
                 cout << "O";
             }
         }
-        gotoXY(thanRan[DoDai].x, thanRan[DoDai].y);
-        cout << " ";
+        
     }
 
     void dieu_khien_huong()
@@ -130,22 +132,36 @@ public:
         }
     }
 
+    void start(){
+        gotoXY(x_mid-12, y_max + 1);
+        cout<<"START: Nhan phim bat ky     ";
+        _getch();
+    }
+
     void pause(){
         //Ẩn dòng Pause...
-        gotoXY(x_mid-8, y_max + 1);
-        cout<<"  ----PAUSED----  ";
-        char c = '!';
-        while (c == '!')
+        gotoXY(x_mid-12, y_max + 1);
+        cout<<"PAUSED: nhan phim 1 de RESET";
+        char c = '@';
+        while (c == '@')
         {
             c = _getch();
+            if(c == '1'){
+                khoi_tao_game();
+            }
         }
         //Sleep(3000);
         running();
     }
 
     void running(){
-        gotoXY(x_mid-8, y_max + 1);
-        cout<<"  ....RUNNING....  ";
+        gotoXY(x_mid-12, y_max + 1);
+        cout<<"RUNNING...                  ";
+    }
+
+    void gameOver(){
+        gotoXY(x_mid-12, y_max + 1);
+        cout<<"---------GAME OVER----------";
     }
 
     void di_chuyen()
@@ -250,7 +266,7 @@ public:
 
     void kt_cham_than()
     {
-        // Dang xu ly
+        
     }
     void tang_do_dai()
     {
@@ -265,16 +281,22 @@ public:
 
 CONRAN conRan;
 
+
 //====MAIN: START============================================
 int main()
 {
     srand(time(NULL));
-    system("cls");
     khoi_tao_game();
+    int i = 0;
     while (1)
     {
+        // if(i > 50){
+        //     khoi_tao_game();
+        //     i =0;
+        // }
+        // i++;
         play_game();
-        Sleep(300);
+        Sleep(100);
     }
     _getch();
     return 0;
@@ -283,16 +305,30 @@ int main()
 
 void khoi_tao_game()
 {
+    system("cls");
     showCur(0); // Ẩn con trỏ chuột
     ve_tuong();
-    ve_huong_dan();
-    // tao_ret();
+    ve_mo_ta_cach_choi();
+
+    CONRAN conRan_0;
+    conRan = conRan_0;//Reset rắn khi game over
+    DoDai = 4; //Reset do dai
+    huong = 2; //Reset huong
+    moi.x = -100;//Reset moi
+    conRan.tao_moi();
+    diem = 0; // Reset diem
+    conRan.cong_diem();
+
     conRan.running();
     conRan.VeRan();
+    conRan.start();
+    conRan.running();
+    
 }
 
 void play_game()
 {
+
     conRan.tao_moi();
     conRan.cong_diem();
     conRan.tang_do_dai();
@@ -300,6 +336,7 @@ void play_game()
     conRan.VeRan();
     conRan.dieu_khien_huong();
     conRan.di_chuyen();
+    conRan.kt_cham_than();
 }
 
 void ve_tuong()
@@ -338,7 +375,7 @@ void ve_tuong()
 
 
 
-void ve_huong_dan(){
+void ve_mo_ta_cach_choi(){
         int can_phai_1 = 32;
         int can_phai_2 = 32;
         int can_phai_3 = 8;
